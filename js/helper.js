@@ -13,7 +13,7 @@ These are HTML strings. As part of the course, you'll be using JavaScript functi
 replace the %data% placeholder text you see in them.
 */
 var HTMLheaderName = '<h1 id="name">%data%</h1>';
-var HTMLheaderRole = '<span>%data%</span><hr/>';
+var HTMLheaderRole = '<span class="headerRole">%data%</span><hr/>';
 
 var HTMLcontactGeneric = '<li class="flex-item"><span class="orange-text">%contact%</span><span class="white-text">%data%</span></li>';
 var HTMLmobile = '<li class="flex-item"><span class="orange-text">mobile</span><span class="white-text">%data%</span></li>';
@@ -65,7 +65,7 @@ The International Name challenge in Lesson 2 where you'll create a function that
 $(document).ready(function() {
   $('button').click(function() {
     var iName = inName() || function(){};
-    $('#name').html(iName);  
+    $('#name').html(iName);
   });
 });
 
@@ -96,7 +96,7 @@ See the documentation below for more details.
 https://developers.google.com/maps/documentation/javascript/reference
 */
 var map;    // declares a global map variable
-
+var locationArray = [];
 
 /*
 Start here! initializeMap() is called when page is loaded.
@@ -137,7 +137,7 @@ function initializeMap() {
     for (var job in work.jobs) {
       locations.push(work.jobs[job].location);
     }
-
+    locationArray = locations;
     return locations;
   }
 
@@ -167,6 +167,7 @@ function initializeMap() {
     var infoWindow = new google.maps.InfoWindow({
       content: name
     });
+    infoWindow.open(map,marker);
 
     // hmmmm, I wonder what this is about...
     google.maps.event.addListener(marker, 'click', function() {
@@ -233,11 +234,11 @@ Uncomment the code below when you're ready to implement a Google Map!
 */
 
 // Calls the initializeMap() function when the page loads
-//window.addEventListener('load', initializeMap);
+window.addEventListener('load', initializeMap);
 
 // Vanilla JS way to listen for resizing of the window
 // and adjust map bounds
-//window.addEventListener('resize', function(e) {
+window.addEventListener('resize', function(e) {
   // Make sure the map bounds get updated on page resize
-//  map.fitBounds(mapBounds);
-//});
+  map.fitBounds(mapBounds);
+});
